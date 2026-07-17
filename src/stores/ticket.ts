@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
 import { ticketService } from '../service/ticket'
-import type { Ticket } from '../types/ticket'
+import type { Ticket, TicketList } from '../types/ticket'
 
 export const useTicketStore = defineStore('ticket', {
 
   state: () => ({
-    tickets: [] as Ticket[],
+    tickets: [] as TicketList[],
     loading: false
   }),
 

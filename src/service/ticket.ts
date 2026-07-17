@@ -1,10 +1,10 @@
 import api from '../api/axios'
-import type { Ticket } from '../types/ticket'
+import type { Ticket, TicketList } from '../types/ticket'
 
 export const ticketService = {
 
-  async getAll(): Promise<Ticket[]> {
-    const response = await api.get('/tickets')
+  async getAll(): Promise<TicketList[]> {
+    const response = await api.get('/ticket/list')
 
     return response.data
   },

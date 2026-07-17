@@ -24,6 +24,10 @@ onMounted(() => {
       >
         {{ ticket.id }}
         {{ ticket.status }}
+        {{ ticket.eventName }}
+        {{ ticket.eventAddress }}
+        {{ ticket.eventDate }}  
+        
       </li>
     </ul>
   </div>

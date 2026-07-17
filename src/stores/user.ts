@@ -37,11 +37,11 @@ export const useUserStore = defineStore('user', {
             password
         })
 
-        this.token = response.token
+        this.token = response.accessToken
 
         localStorage.setItem(
             'token',
-            response.token
+            response.accessToken
         )
     },
     logout() {
