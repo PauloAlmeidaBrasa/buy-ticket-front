@@ -6,9 +6,16 @@ export const useUserStore = defineStore('user', {
 
   state: () => ({
     users: [] as User[],
-    loading: false
-  }),
+    loading: false,
+    token: localStorage.getItem('token') || ''
 
+  }),
+    getters: {
+
+        isAuthenticated: (state) => {
+            return !!state.token
+        }
+    },
   actions: {
 
     async fetchUsers() {
@@ -20,15 +27,28 @@ export const useUserStore = defineStore('user', {
         this.loading = false
       }
     },
+    async login(
+        email: string,
+        password: string
+    ) {
 
-    // async createTask(title: string, description: string) {
+        const response = await userService.login({
+            email,
+            password
+        })
 
-    //   const ticket = await ticketService.create({
-    //     title,
-    //     description
-    //   })
+        this.token = response.token
 
-    //   this.tasks.push(ticket)
-    // }
+        localStorage.setItem(
+            'token',
+            response.token
+        )
+    },
+    logout() {
+
+        this.token = ''
+
+        localStorage.removeItem('token')
+    }
   }
 })
