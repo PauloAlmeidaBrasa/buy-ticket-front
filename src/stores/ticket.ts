@@ -24,11 +24,14 @@ export const useTicketStore = defineStore('ticket', {
       this.loading = true
 
       const userId = localStorage.getItem('userId')
+      const email = localStorage.getItem('userEmail')
 
       try {
+        console.log("userId "+userId+" email "+email+" ticketId "+ticketId)
         await ticketService.buy({
           userId: Number(userId),
-          ticketId
+          ticketId,
+          userEmail: email || ''
         })
         // this.tickets = await ticketService.getAll()
       } finally {

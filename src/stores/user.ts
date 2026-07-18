@@ -42,6 +42,7 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('token', response.accessToken)
         localStorage.setItem('userId', response.userId)
         localStorage.setItem('username', response.username)
+        localStorage.setItem('userEmail', response.email)
     },
     logout() {
 
