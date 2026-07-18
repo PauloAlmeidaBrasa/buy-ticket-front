@@ -39,10 +39,9 @@ export const useUserStore = defineStore('user', {
 
         this.token = response.accessToken
 
-        localStorage.setItem(
-            'token',
-            response.accessToken
-        )
+        localStorage.setItem('token', response.accessToken)
+        localStorage.setItem('userId', response.userId)
+        localStorage.setItem('username', response.username)
     },
     logout() {
 

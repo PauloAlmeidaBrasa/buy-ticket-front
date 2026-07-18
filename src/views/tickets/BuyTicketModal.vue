@@ -1,13 +1,22 @@
 <script setup lang="ts">
-import type { TicketList } from '../../types/ticket' // adjust to your actual type path
+import type { TicketList } from '../../types/ticket'
+import { formatDate } from '../../util/generalUtil'
+
 
 defineProps<{
   ticket: TicketList
 }>()
 
+
+
+function buyTicket(ticket: TicketList) {
+//   selectedTicket.value = ticket
+}
+
+
 const emit = defineEmits<{
   close: []
-  confirm: [id: number]
+  confirm: [ticketId: number]
 }>()
 </script>
 
@@ -28,8 +37,8 @@ const emit = defineEmits<{
         ✕
       </button>
 
-      <h2 class="text-lg font-semibold mb-1">{{ ticket.eventName }}</h2>
-      <p class="text-sm text-gray-500 mb-6">{{ ticket.eventDate }}</p>
+      <h2 style="color: black;" class="text-lg font-semibold mb-1">{{ ticket.eventName }}</h2>
+      <p class="text-sm text-gray-500 mb-6">{{ "Data:  " + formatDate(ticket.eventDate) }}</p>
 
       <div class="flex justify-center">
         <button

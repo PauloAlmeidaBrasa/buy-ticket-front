@@ -1,5 +1,6 @@
 import api from '../api/axios'
 import type { Ticket, TicketList } from '../types/ticket'
+import type { BuyTicketMessage }  from '../types/ticket'
 
 export const ticketService = {
 
@@ -15,8 +16,8 @@ export const ticketService = {
     return response.data
   },
 
-  async buy(ticket: Omit<Ticket, 'id'>): Promise<Ticket> {
-    const response = await api.post('/ticket/buy', ticket)
+  async buy(buyMessage: BuyTicketMessage): Promise<Ticket> {
+    const response = await api.post('/ticket/buy', buyMessage)
 
     return response.data
   }

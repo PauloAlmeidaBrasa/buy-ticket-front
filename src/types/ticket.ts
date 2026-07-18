@@ -12,3 +12,8 @@ export interface TicketList {
   eventDate: string
 
 }
+
+export interface BuyTicketMessage {
+  userId: number
+  ticketId: number
+}

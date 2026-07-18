@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ticketService } from '../service/ticket'
-import type { Ticket, TicketList } from '../types/ticket'
+import type {  TicketList } from '../types/ticket'
 
 export const useTicketStore = defineStore('ticket', {
 
@@ -20,6 +20,21 @@ export const useTicketStore = defineStore('ticket', {
         this.loading = false
       }
     },
+    async buyTicket(ticketId: number) {
+      this.loading = true
+
+      const userId = localStorage.getItem('userId')
+
+      try {
+        await ticketService.buy({
+          userId: Number(userId),
+          ticketId
+        })
+        // this.tickets = await ticketService.getAll()
+      } finally {
+        this.loading = false
+      }
+    }
 
     // async createTask(title: string, description: string) {
 

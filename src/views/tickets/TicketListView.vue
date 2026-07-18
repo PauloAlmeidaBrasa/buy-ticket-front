@@ -19,6 +19,7 @@ function closeBuyModal() {
 
 async function confirmBuy(ticketId: number) {
   // wire this to your buy API call, e.g. via ticketStore
+  await ticketStore.buyTicket(ticketId,)
   console.log('Buying ticket', ticketId)
   closeBuyModal()
 }
