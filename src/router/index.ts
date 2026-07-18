@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import TicketListView from '../views/TicketListView.vue'
+import TicketListView from '../views/tickets/TicketListView.vue'
 import LoginView from '../views/LoginView.vue'
 // import TaskCreateView from '../views/TaskCreateView.vue'
 
