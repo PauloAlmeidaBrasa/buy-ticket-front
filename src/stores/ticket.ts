@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ticketService } from '../service/ticket'
 import type {  TicketList } from '../types/ticket'
+import type { BuyTicketMessage } from '../types/ticket'
 
 export const useTicketStore = defineStore('ticket', {
 
@@ -20,18 +21,16 @@ export const useTicketStore = defineStore('ticket', {
         this.loading = false
       }
     },
-    async buyTicket(ticketId: number) {
+    async buyTicket(message: BuyTicketMessage) {
       this.loading = true
 
-      const userId = localStorage.getItem('userId')
-      const email = localStorage.getItem('userEmail')
-
       try {
-        console.log("userId "+userId+" email "+email+" ticketId "+ticketId)
+        // console.log("userId "+userId+" email "+email+" ticketId "+message.ticketId)
         await ticketService.buy({
-          userId: Number(userId),
-          ticketId,
-          userEmail: email || ''
+          userId: message.userId,
+          ticketId: message.ticketId,
+          userEmail: message.userEmail,
+          userWhatsapp: message.userWhatsapp || null
         })
         // this.tickets = await ticketService.getAll()
       } finally {

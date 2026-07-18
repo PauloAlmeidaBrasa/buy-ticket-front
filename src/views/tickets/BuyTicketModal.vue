@@ -4,15 +4,9 @@ import { formatDate } from '../../util/generalUtil'
 
 
 defineProps<{
-  ticket: TicketList
+  ticket: TicketList,
+  error?: string | null
 }>()
-
-
-
-function buyTicket(ticket: TicketList) {
-//   selectedTicket.value = ticket
-}
-
 
 const emit = defineEmits<{
   close: []
@@ -39,6 +33,10 @@ const emit = defineEmits<{
 
       <h2 style="color: black;" class="text-lg font-semibold mb-1">{{ ticket.eventName }}</h2>
       <p class="text-sm text-gray-500 mb-6">{{ "Data:  " + formatDate(ticket.eventDate) }}</p>
+
+      <p v-if="error" class="text-sm text-red-600 mb-4">
+        {{ error }}
+      </p>
 
       <div class="flex justify-center">
         <button

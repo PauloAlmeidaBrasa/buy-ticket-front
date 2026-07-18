@@ -8,20 +8,59 @@ import BuyTicketModal from './BuyTicketModal.vue'
 
 const ticketStore = useTicketStore()
 const selectedTicket = ref<TicketList | null>(null)
+const buyError = ref<string | null>(null)
 
 function openBuyModal(ticket: TicketList) {
+  buyError.value = null
   selectedTicket.value = ticket
 }
 
 function closeBuyModal() {
   selectedTicket.value = null
+  buyError.value = null
+}
+
+function validateBuyFields(ticketId: number, userId: number, userEmail: string): string | null {
+  if (!ticketId || Number.isNaN(ticketId) || ticketId <= 0) {
+    return 'Invalid ticket. Please try again.'
+  }
+  if (!userId || Number.isNaN(userId) || userId <= 0) {
+    return 'You must be logged in to buy a ticket.'
+  }
+  if (!userEmail || userEmail.trim() === '') {
+    return 'A valid email is required to buy a ticket.'
+  }
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailPattern.test(userEmail)) {
+    return 'The email on file is invalid.'
+  }
+  return null
 }
 
 async function confirmBuy(ticketId: number) {
-  // wire this to your buy API call, e.g. via ticketStore
-  await ticketStore.buyTicket(ticketId,)
-  console.log('Buying ticket', ticketId)
-  closeBuyModal()
+  const userId = Number(localStorage.getItem('userId'))
+  const userEmail = localStorage.getItem('userEmail') || ''
+
+  const validationError = validateBuyFields(ticketId, userId, userEmail)
+  if (validationError) {
+    buyError.value = validationError
+    return
+  }
+
+  buyError.value = null
+
+  try {
+    await ticketStore.buyTicket({
+      userId,
+      ticketId,
+      userEmail,
+      userWhatsapp: localStorage.getItem('userWhatsapp') || null
+    })
+    closeBuyModal()
+    await ticketStore.fetchTickets() // refresh list to reflect new status
+  } catch (err) {
+    buyError.value = 'Failed to buy ticket. Please try again.'
+  }
 }
 
 onMounted(() => {

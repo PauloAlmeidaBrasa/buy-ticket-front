@@ -43,12 +43,17 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('userId', response.userId)
         localStorage.setItem('username', response.username)
         localStorage.setItem('userEmail', response.email)
+        localStorage.setItem('userWhatsapp', response.whatsapp)
     },
     logout() {
 
         this.token = ''
 
         localStorage.removeItem('token')
+        localStorage.removeItem('userId')
+        localStorage.removeItem('username')
+        localStorage.removeItem('userEmail')
+        localStorage.removeItem('userWhatsapp')
     }
   }
 })

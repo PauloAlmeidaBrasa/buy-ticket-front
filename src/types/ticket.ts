@@ -16,5 +16,6 @@ export interface TicketList {
 export interface BuyTicketMessage {
   userId: number
   ticketId: number,
-  userEmail: string
+  userEmail: string,
+  userWhatsapp?: string | null
 }
