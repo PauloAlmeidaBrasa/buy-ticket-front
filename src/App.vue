@@ -1,7 +1,7 @@
 
 <template>
   <div>
-    <UserCardList />
+    <UserCardList v-if="userStore.isAuthenticated" />
     <LogoutLink />
     <router-view />
   </div>
@@ -9,4 +9,7 @@
 <script setup>
 import LogoutLink from './components/LogoutLink.vue'
 import UserCardList from './components/UserCardList.vue'
+import { useUserStore } from './stores/user'
+
+const userStore = useUserStore()
 </script>
