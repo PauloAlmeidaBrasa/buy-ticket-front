@@ -70,13 +70,14 @@ onMounted(() => {
 
 <template>
   <div>
-    <h1>Tasks</h1>
+    <h1>Tickets</h1>
 
     <div v-if="ticketStore.loading">
       Loading...
     </div>
 
-        <table v-else class="w-full text-left border-collapse">
+    <div v-else class="px-4 md:px-8">
+      <table class="w-full text-left border-collapse">
         <thead>
           <tr class="border-b border-gray-200 text-sm text-gray-500">
             <th class="py-2 pr-4">ID</th>
@@ -97,17 +98,18 @@ onMounted(() => {
             <td class="py-2 pr-4">{{ ticket.eventAddress }}</td>
             <td class="py-2 pr-4">{{ formatDate(ticket.eventDate) }}</td>
             <td class="py-2 pr-4">{{ ticket.status }}</td>
-             <td class="py-2 pr-4">
-            <button
-              class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700 transition"
-              @click="openBuyModal(ticket)"
-            >
-              Buy
-            </button>
-          </td>
+            <td class="py-2 pr-4">
+              <button
+                class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700 transition"
+                @click="openBuyModal(ticket)"
+              >
+                Buy
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
+    </div>
        <BuyTicketModal
       v-if="selectedTicket"
       :ticket="selectedTicket"

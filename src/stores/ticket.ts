@@ -7,7 +7,9 @@ export const useTicketStore = defineStore('ticket', {
 
   state: () => ({
     tickets: [] as TicketList[],
-    loading: false
+    userTickets: [] as TicketList[],
+    loading: false,
+    userTicketsLoading: false
   }),
 
   actions: {
@@ -19,6 +21,15 @@ export const useTicketStore = defineStore('ticket', {
         this.tickets = await ticketService.getAll()
       } finally {
         this.loading = false
+      }
+    },
+    async fetchUserTickets(userId: number) {
+      this.userTicketsLoading = true
+
+      try {
+        this.userTickets = await ticketService.getByUserId(userId)
+      } finally {
+        this.userTicketsLoading = false
       }
     },
     async buyTicket(message: BuyTicketMessage) {

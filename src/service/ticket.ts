@@ -16,6 +16,12 @@ export const ticketService = {
     return response.data
   },
 
+  async getByUserId(userId: number): Promise<TicketList[]> {
+    const response = await api.get(`/tickets/user/${userId}`)
+
+    return response.data
+  },
+
   async buy(buyMessage: BuyTicketMessage): Promise<Ticket> {
     const response = await api.post('/ticket/buy', buyMessage)
 
